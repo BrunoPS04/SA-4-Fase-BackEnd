@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +17,13 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;  
+
     @Transactional
     public User createUser(User user) {
+        // Criptografa a senha antes de salvar
+        user.setSenha(passwordEncoder.encode(user.getSenha()));
         return repository.save(user);
     }
 
@@ -29,6 +35,8 @@ public class UserService {
     @Transactional
     public User updateUser(Long id, User user) {
         user.setId(id);
+        // Criptografan a senha ao atualizar
+        user.setSenha(passwordEncoder.encode(user.getSenha()));
         return repository.save(user);
     }
 
@@ -58,12 +66,11 @@ public class UserService {
         return null;
     }
 
-
-    //Verifica se o email já existe no banco de dados e se a senha é válida
+    // Verifica se o email já existe no banco de dados e se a senha é válida
     @Transactional
     public User login(String email, String senha) {
         User user = repository.findByEmail(email);
-        if (user != null && user.getSenha().equals(senha)) {
+        if (user != null && passwordEncoder.matches(senha, user.getSenha())) {
             return user;
         }
         return null;

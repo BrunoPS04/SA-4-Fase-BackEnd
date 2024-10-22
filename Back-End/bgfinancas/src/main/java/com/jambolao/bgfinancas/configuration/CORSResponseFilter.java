@@ -6,8 +6,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
-
 import org.springframework.context.annotation.Configuration;
+
 
 @Configuration
 public class CORSResponseFilter implements ContainerResponseFilter {
@@ -25,3 +25,4 @@ public class CORSResponseFilter implements ContainerResponseFilter {
     }
 
 }
+
