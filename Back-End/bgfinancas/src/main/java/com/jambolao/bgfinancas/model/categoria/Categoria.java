@@ -1,5 +1,6 @@
 package com.jambolao.bgfinancas.model.categoria;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,13 +18,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@JsonDeserialize(using = CategoriaDeserializer.class)
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 15)
     private String nomeCategoria;
+
+    public Categoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
+    }
 
     public Categoria(CategoriaRequestDTO data) {
         this.nomeCategoria = data.nomeCategoria();
@@ -44,5 +51,4 @@ public class Categoria {
     public String getNomeCategoria() {
         return nomeCategoria;
     }
-    
 }

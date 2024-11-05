@@ -33,8 +33,8 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        user1 = new User((long) 8, "John", "Doe", "john@teste.com", "123teste");
-        user2 = new User((long) 9, "Jane", "Doe", "jane@teste.com", "teste321");
+        user1 = new User((long) 8, "John", "Doe", "john@teste.com", "123teste", null);
+        user2 = new User((long) 9, "Jane", "Doe", "jane@teste.com", "teste321", null);
     }
 
     @Test

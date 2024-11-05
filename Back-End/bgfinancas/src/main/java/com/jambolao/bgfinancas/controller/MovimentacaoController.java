@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +20,9 @@ import com.jambolao.bgfinancas.service.MovimentacaoService;
 
 @RestController
 @RequestMapping("/movimentacoes")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class MovimentacaoController {
-    
+
     @Autowired
     private MovimentacaoService service;
 
@@ -28,6 +30,12 @@ public class MovimentacaoController {
     public ResponseEntity<List<Movimentacao>> listCategorias() {
         List<Movimentacao> movimentacao = service.listMovimentacoes();
         return ResponseEntity.ok(movimentacao);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Movimentacao>> listByUserId(@PathVariable Long userId) {
+        List<Movimentacao> movimentacoes = service.listByUserId(userId);
+        return ResponseEntity.ok(movimentacoes);
     }
 
     @GetMapping("/{id}")
@@ -38,8 +46,9 @@ public class MovimentacaoController {
 
     @PostMapping
     public ResponseEntity<Movimentacao> create(@RequestBody Movimentacao movimentacao) {
+
         Movimentacao createdMovimentacao = service.createMovimentacao(movimentacao);
-        return new ResponseEntity<Movimentacao> (createdMovimentacao, HttpStatus.CREATED);
+        return new ResponseEntity<Movimentacao>(createdMovimentacao, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

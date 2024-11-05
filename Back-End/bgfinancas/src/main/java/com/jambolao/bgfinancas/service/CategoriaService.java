@@ -51,3 +51,9 @@ public class CategoriaService {
     }
 
 }
+
+// O erro ocorre porque você está tentando salvar uma entidade Movimentacao que possui uma associação obrigatória (não-nula)
+// com uma entidade Categoria, mas essa instância de Categoria não foi salva antes. Isso é conhecido
+// como problema de "transient instance", onde o Hibernate exige que qualquer entidade relacionada
+// seja persistida antes de salvá-la como referência em outra entidade. Neste caso, a associação 
+// categoria em Movimentacao está referenciando uma Categoria que ainda não está salva no banco de dados.

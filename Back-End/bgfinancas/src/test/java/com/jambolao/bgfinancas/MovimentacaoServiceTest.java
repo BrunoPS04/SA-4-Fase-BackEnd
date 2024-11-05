@@ -3,7 +3,7 @@ package com.jambolao.bgfinancas;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +36,8 @@ public class MovimentacaoServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        movimentacao1 = new Movimentacao((long) 8, "Deposito 1", (float) 17.99, "Entrada", categoria1, LocalDateTime.now());
-        movimentacao2 = new Movimentacao((long) 9, "Retirada 1", (float) 17.99, "Saida", categoria2,LocalDateTime.now());
+        movimentacao1 = new Movimentacao((long) 8, "Deposito 1", (float) 17.99, "Entrada", categoria1, LocalDate.now(), null);
+        movimentacao2 = new Movimentacao((long) 9, "Retirada 1", (float) 17.99, "Saida", categoria2,LocalDate.now(), null);
     }
 
     @Test

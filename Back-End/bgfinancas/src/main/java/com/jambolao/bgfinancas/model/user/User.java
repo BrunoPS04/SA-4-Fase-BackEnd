@@ -1,5 +1,9 @@
 package com.jambolao.bgfinancas.model.user;
 
+import java.util.List;
+
+import com.jambolao.bgfinancas.model.movimentacao.Movimentacao;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -7,14 +11,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Table(name = "users")
-@Entity(name = "user")
+@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 60)
@@ -25,12 +30,15 @@ public class User{
     private String email;
     @Column(nullable = false, length = 60)
     private String senha;
+    @OneToMany(mappedBy = "user_id")
+    private List<Movimentacao> movimentacoes;
 
     public User(UserRequestDTO data) {
         this.nome = data.nome();
         this.ultimoNome = data.ultimoNome();
         this.email = data.email();
         this.senha = data.senha();
+        this.movimentacoes = data.movimentacoes();
     }
 
     public String getNome(){
@@ -47,6 +55,10 @@ public class User{
 
     public String getSenha(){
         return this.senha;
+    }
+
+    public List<Movimentacao> getMovimentacoes() {
+        return this.movimentacoes;
     }
 
     public void setId(Long id) {
@@ -67,6 +79,10 @@ public class User{
 
     public void setUltimoNome(String ultimoNome) {
         this.ultimoNome = ultimoNome;
+    }
+
+    public void setMovimentaoes(List<Movimentacao> movimentacoes) {
+        this.movimentacoes = movimentacoes;
     }
 
     public User get() {

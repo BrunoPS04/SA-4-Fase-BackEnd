@@ -1,8 +1,9 @@
 package com.jambolao.bgfinancas.model.movimentacao;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.jambolao.bgfinancas.model.categoria.Categoria;
+import com.jambolao.bgfinancas.model.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Table(name = "movimentacoes")
-@Entity(name = "movimentacao")
+@Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,7 +39,10 @@ public class Movimentacao {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
     @Column(nullable = false)
-    private LocalDateTime data;
+    private LocalDate data;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user_id;
 
     public Movimentacao(MovimentacaoRequestDTO data) {
         this.descricao = data.descricao();
@@ -46,13 +50,14 @@ public class Movimentacao {
         this.tipo = data.tipo();
         this.categoria = data.categoria();
         this.data = data.data();
+        this.user_id = data.user_id();
     }
 
     public Categoria getCategoria() {
         return categoria;
     }
 
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return data;
     }
 
@@ -72,11 +77,15 @@ public class Movimentacao {
         return valor;
     }
 
+    public User user_id() {
+        return user_id;
+    }
+
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -94,6 +103,10 @@ public class Movimentacao {
 
     public void setValor(Float valor) {
         this.valor = valor;
+    }
+
+    public void setUserId(User user_id) {
+        this.user_id = user_id;
     }
     
 }

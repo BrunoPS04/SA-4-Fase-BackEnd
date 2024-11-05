@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jambolao.bgfinancas.model.categoria.Categoria;
+import com.jambolao.bgfinancas.model.categoria.CategoriaRequestDTO;
 import com.jambolao.bgfinancas.service.CategoriaService;
 
 @RestController
@@ -37,16 +38,18 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> create(@RequestBody Categoria categoria) {
+    public ResponseEntity<Categoria> create(@RequestBody CategoriaRequestDTO categoriaRequest) {
+        Categoria categoria = new Categoria(categoriaRequest);
         Categoria createdCategory = service.createCategoria(categoria);
-        return new ResponseEntity<Categoria> (createdCategory, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody Categoria categoria) {
+    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody CategoriaRequestDTO categoriaRequest) {
+        Categoria categoria = new Categoria(categoriaRequest);
         Categoria updatedCategory = service.updateCategoria(id, categoria);
         return ResponseEntity.ok(updatedCategory);
-    }
+    }                                                                                                                 
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
