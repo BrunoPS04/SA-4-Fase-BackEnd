@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jambolao.bgfinancas.model.user.User;
+import com.jambolao.bgfinancas.model.user.UserResponseDTO;
 import com.jambolao.bgfinancas.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -65,13 +66,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user, HttpSession session) {
+    public ResponseEntity<UserResponseDTO> login(@RequestBody User user, HttpSession session) {
         // Verifica se o email fornecido corresponde a algum usuário existente
         User existingUser = service.readUserByEmail(user.getEmail());
 
         if (existingUser == null) {
             // Retorna 404 se o usuário não for encontrado no banco de dados
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+            return ResponseEntity.badRequest().build();
         }
 
         // Verifica se a senha está correta
@@ -80,9 +81,12 @@ public class UserController {
         if (loggedInUser != null) {
             // Armazena o usuário na sessão
             session.setAttribute("user", loggedInUser);
-            return ResponseEntity.ok("Login realizado com sucesso");
+
+            UserResponseDTO userResponseDTO = new UserResponseDTO(loggedInUser.getId(), loggedInUser.getNome(), loggedInUser.getUltimoNome(), loggedInUser.getEmail());
+
+            return ResponseEntity.ok(userResponseDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha incorretos");
+            return ResponseEntity.badRequest().build();
         }
     }
 

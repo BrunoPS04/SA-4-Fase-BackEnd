@@ -44,13 +44,13 @@ public class Movimentacao {
     @JoinColumn(name = "user_id", nullable = false)
     private User user_id;
 
-    public Movimentacao(MovimentacaoRequestDTO data) {
-        this.descricao = data.descricao();
-        this.valor = data.valor();
-        this.tipo = data.tipo();
-        this.categoria = data.categoria();
-        this.data = data.data();
-        this.user_id = data.user_id();
+    public Movimentacao(String descricao, Float valor, String tipo, Categoria categoria, LocalDate data, User user_id) {
+        this.descricao = descricao;
+        this.valor = valor;
+        this.tipo = tipo;
+        this.categoria = categoria;
+        this.data = data;
+        this.user_id = user_id;
     }
 
     public Categoria getCategoria() {

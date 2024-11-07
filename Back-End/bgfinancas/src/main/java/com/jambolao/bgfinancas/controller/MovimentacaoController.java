@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jambolao.bgfinancas.model.movimentacao.Movimentacao;
+import com.jambolao.bgfinancas.model.movimentacao.MovimentacaoRequestDTO;
 import com.jambolao.bgfinancas.service.MovimentacaoService;
 
 @RestController
@@ -45,7 +46,7 @@ public class MovimentacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Movimentacao> create(@RequestBody Movimentacao movimentacao) {
+    public ResponseEntity<Movimentacao> create(@RequestBody MovimentacaoRequestDTO movimentacao) {
 
         Movimentacao createdMovimentacao = service.createMovimentacao(movimentacao);
         return new ResponseEntity<Movimentacao>(createdMovimentacao, HttpStatus.CREATED);
