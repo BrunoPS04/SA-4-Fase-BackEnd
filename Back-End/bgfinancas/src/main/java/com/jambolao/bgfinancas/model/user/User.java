@@ -2,6 +2,7 @@ package com.jambolao.bgfinancas.model.user;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jambolao.bgfinancas.model.movimentacao.Movimentacao;
 
 import jakarta.persistence.*;
@@ -31,6 +32,7 @@ public class User{
     @Column(nullable = false, length = 60)
     private String senha;
     @OneToMany(mappedBy = "user_id")
+    @JsonIgnore
     private List<Movimentacao> movimentacoes;
 
     public User(UserRequestDTO data) {

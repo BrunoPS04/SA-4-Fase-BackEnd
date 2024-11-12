@@ -27,7 +27,7 @@ public class MovimentacaoController {
     @Autowired
     private MovimentacaoService service;
 
-    @GetMapping
+    @GetMapping("/listarMovimentacao")
     public ResponseEntity<List<Movimentacao>> listCategorias() {
         List<Movimentacao> movimentacao = service.listMovimentacoes();
         return ResponseEntity.ok(movimentacao);
@@ -40,7 +40,7 @@ public class MovimentacaoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movimentacao> read(Long id) {
+    public ResponseEntity<Movimentacao> read(@PathVariable Long id) {
         Movimentacao movimentacao = service.readMovimentacao(id);
         return ResponseEntity.ok(movimentacao);
     }
