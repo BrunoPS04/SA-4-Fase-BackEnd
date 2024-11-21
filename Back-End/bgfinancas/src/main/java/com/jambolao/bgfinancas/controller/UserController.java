@@ -72,7 +72,7 @@ public class UserController {
 
         if (existingUser == null) {
             // Retorna 404 se o usuário não for encontrado no banco de dados
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         // Verifica se a senha está correta
@@ -82,11 +82,14 @@ public class UserController {
             // Armazena o usuário na sessão
             session.setAttribute("user", loggedInUser);
 
-            UserResponseDTO userResponseDTO = new UserResponseDTO(loggedInUser.getId(), loggedInUser.getNome(), loggedInUser.getUltimoNome(), loggedInUser.getEmail());
+            UserResponseDTO userResponseDTO = new UserResponseDTO(
+                    loggedInUser.getId(), loggedInUser.getNome(),
+                    loggedInUser.getUltimoNome(), loggedInUser.getEmail());
 
             return ResponseEntity.ok(userResponseDTO);
         } else {
-            return ResponseEntity.badRequest().build();
+            // Retorna 401 se a senha estiver incorreta
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 

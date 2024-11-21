@@ -61,7 +61,6 @@ public class MovimentacaoService {
 
         movimentacaoToSave.setUserId(usuario);
 
-       
         return repository.save(movimentacaoToSave);
     }
 
@@ -97,6 +96,16 @@ public class MovimentacaoService {
             return repository.findById(id).get();
         }
         return null;
+    }
+
+    @Transactional
+    public Optional<Categoria> findCategoriaByName(String nomeCategoria) {
+        return categoriaRepository.findByNomeCategoria(nomeCategoria);
+    }
+
+    @Transactional
+    public Optional<User> findUserById(Long userId) {
+        return userRepository.findById(userId);
     }
 
 }

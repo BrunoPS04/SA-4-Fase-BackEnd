@@ -22,8 +22,11 @@ public class CategoriaService {
     }
 
     @Transactional
-    public List<Categoria> listCategorias() {
-        return (List<Categoria>) repository.findAll();
+    public List<String> listCategorias() {
+        return repository.findAll()
+                .stream()
+                .map(Categoria::getNomeCategoria)
+                .toList(); 
     }
 
     @Transactional
@@ -48,6 +51,13 @@ public class CategoriaService {
             return repository.findById(id).get();
         }
         return null;
+    }
+
+    @Transactional
+    public Optional<Categoria> findByNameCategoria(String nomeCategoria) {
+       
+        return repository.findByNomeCategoria(nomeCategoria);
+       
     }
 
 }

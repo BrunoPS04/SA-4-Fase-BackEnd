@@ -26,9 +26,9 @@ public class CategoriaController {
     private CategoriaService service;
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> listCategorias() {
-        List<Categoria> categoria = service.listCategorias();
-        return ResponseEntity.ok(categoria);
+    public ResponseEntity<List<String>> listCategorias() {
+        List<String> categorias = service.listCategorias();
+        return ResponseEntity.ok(categorias);
     }
 
     @GetMapping("/{id}")
@@ -49,7 +49,7 @@ public class CategoriaController {
         Categoria categoria = new Categoria(categoriaRequest);
         Categoria updatedCategory = service.updateCategoria(id, categoria);
         return ResponseEntity.ok(updatedCategory);
-    }                                                                                                                 
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
