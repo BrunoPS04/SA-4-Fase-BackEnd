@@ -55,9 +55,6 @@ public class MovimentacaoController {
         return new ResponseEntity<Movimentacao>(createdMovimentacao, HttpStatus.CREATED);
     }
 
-    // Buscar no banco de dados a categoria que tem o nome
-    // Categoria categoria = repository.findByNome(movimentacao.categoria());
-
     @PutMapping("/{id}")
     public ResponseEntity<Movimentacao> update(@PathVariable Long id,
             @RequestBody MovimentacaoRequestDTO movimentacaoDTO) {

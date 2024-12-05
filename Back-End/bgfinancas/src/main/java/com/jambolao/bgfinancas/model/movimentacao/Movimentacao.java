@@ -2,6 +2,8 @@ package com.jambolao.bgfinancas.model.movimentacao;
 
 import java.time.LocalDate;
 
+// import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import com.jambolao.bgfinancas.model.categoria.Categoria;
 import com.jambolao.bgfinancas.model.user.User;
 
@@ -17,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+// import lombok.Builder.Default;
 
 @Table(name = "movimentacoes")
 @Entity
@@ -43,6 +46,9 @@ public class Movimentacao {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user_id;
+
+    // @DefaultValue(value = "LocalDate.now()")
+    // private LocalDate createdAt;
 
     public Movimentacao(String descricao, Float valor, String tipo, Categoria categoria, LocalDate data, User user_id) {
         this.descricao = descricao;
